@@ -1,3 +1,17 @@
-from django.db import models
+"""Models for users application."""
 
-# Create your models here.
+from django.contrib.auth.models import AbstractUser
+from django.db import models
+from django_extensions.db.models import TimeStampedModel
+
+from groups.models import Group
+
+
+class CustomUser(TimeStampedModel, AbstractUser):
+    group = models.ForeignKey(
+        Group, related_name='users', on_delete=models.PROTECT,
+        blank=True, null=True
+    )
+
+    def __str__(self):
+        return self.username
