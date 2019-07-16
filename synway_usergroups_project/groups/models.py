@@ -5,7 +5,7 @@ from django_extensions.db.models import TimeStampedModel
 
 
 class Group(TimeStampedModel, models.Model):
-    """Model for blogs."""
+    """Model for groups."""
     name = models.CharField(max_length=50, unique=True)
     description = models.TextField()
 

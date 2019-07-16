@@ -28,6 +28,7 @@ class UserViewSetTest(APITestCase):
         }
         self.user_update_data = {
             'username': 'test_user',
+            'password': 'test_password',
             'group': 1
         }
 
@@ -76,7 +77,7 @@ class UserViewSetTest(APITestCase):
     def test_update_user_with_permissions(self):
         """Test user updating with permissions."""
 
-        user = UserFactory()
+        user = UserFactory(**self.user_login_data)
         self.client.force_authenticate(user=user)
         response = self.client.put(
             reverse('customuser-detail', kwargs={'pk': user.pk}),

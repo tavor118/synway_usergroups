@@ -13,7 +13,7 @@ class UserSerializerTest(TestCase):
 
     def setUp(self):
         self.group = factories.GroupFactory()
-        self.user = factories.UserFactory(group = self.group)
+        self.user = factories.UserFactory(group=self.group)
 
     def test_model_fields(self):
         """Test if serializer data matches the CustomUser object fields."""
@@ -24,7 +24,7 @@ class UserSerializerTest(TestCase):
         )
 
         self.assertEqual(
-            serializer.data['group'], self.group.id
+            serializer.data['group_name'], self.group.name
         )
 
         for field_name in ('id', 'username'):

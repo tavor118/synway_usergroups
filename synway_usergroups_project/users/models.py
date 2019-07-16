@@ -8,6 +8,7 @@ from groups.models import Group
 
 
 class CustomUser(TimeStampedModel, AbstractUser):
+    """Custom User model."""
     group = models.ForeignKey(
         Group, related_name='users', on_delete=models.PROTECT,
         blank=True, null=True

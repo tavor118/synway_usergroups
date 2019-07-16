@@ -2,9 +2,9 @@
 
 from django.test import TestCase
 
-from ..models import Group
 from seed.factories import (UserFactory,
                             GroupFactory)
+from ..models import Group
 
 
 class GroupModelTest(TestCase):

@@ -7,9 +7,9 @@ from rest_framework.exceptions import ErrorDetail
 from rest_framework.reverse import reverse
 from rest_framework.test import APITestCase
 
-from ..models import Group
 from seed.factories import (UserFactory,
                             GroupFactory)
+from ..models import Group
 
 
 class GroupViewSetTest(APITestCase):
@@ -44,7 +44,7 @@ class GroupViewSetTest(APITestCase):
         """Test group creating without authentications."""
 
         response = self.client.post(reverse('group-list'), self.group_data)
-        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
 
     def test_create_valid_group(self):
         """Test valid group creating."""
@@ -71,7 +71,7 @@ class GroupViewSetTest(APITestCase):
         response = self.client.put(
             reverse('group-detail', kwargs={'pk': group.pk}), self.group_data
         )
-        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
 
     def test_update_valid_group(self):
         """Test valid group updating."""
@@ -119,13 +119,12 @@ class GroupViewSetTest(APITestCase):
         response = self.client.delete(
             reverse('group-detail', kwargs={'pk': group.pk})
         )
-        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
 
     def test_delete_group_with_users(self):
         """Test group deleting with users."""
 
         user = self.user
-        group_id = self.group.id
         # forcibly authenticate a request
         self.client.force_authenticate(user=user)
         # make an authenticated request to the view
@@ -157,4 +156,3 @@ class GroupViewSetTest(APITestCase):
         self.assertIsNone(group)
         group_count -= 1
         self.assertEqual(Group.objects.count(), group_count)
-

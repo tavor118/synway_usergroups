@@ -1,4 +1,5 @@
 """ViewSets for groups application."""
+
 from django.db.models import ProtectedError
 from rest_framework import viewsets, status
 from rest_framework.exceptions import ValidationError
